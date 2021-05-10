@@ -1,11 +1,45 @@
 <!DOCTYPE html>
+
 <head>
-    <title>Rock Paper Scissor</title>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src='javascript.js'></script>
+    <title>Rock Paper Scissors</title>
+    <meta charset="UTF-8">   
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
     <h1>
-        This is my body
+        Rock Paper Scissors
     </h1>
+    <h2>
+        Select one to play
+    </h2>
+    <div id='buttons'>
+        <div class="button" id="rock">
+            <img class="button-img" src="images/_0000_rock.png" alt="Rock">
+            <span class="button-text">Rock</span>
+        </div>
+        <div class="button" id="paper">
+            <img class="button-img" src="images/_0002_paper.png" alt="Paper">
+            <span class="button-text">Paper</span>
+        </div>
+        <div class="button" id="scissors">
+            <img class="button-img" src="images/_0001_scissors.png" alt="Scissors">
+            <span class="button-text">Scissors</span>
+        </div>
+    </div>
+    <div id='scoreboard'>
+        <h2>Reach five points first to win!</h2>
+        <span id='game-result'></span>
+        <div id='scores'>
+            <div id='player-score'>
+                <h3>Player's Score</h3>
+                <span id='player'>0</span>
+            </div>
+            <div id='computer-score'>
+                <h3>Computer's Score</h3>
+                <span id='computer'>0</span>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src='javascript.js'></script>
 </body>

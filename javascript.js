@@ -1,45 +1,65 @@
+const player = document.querySelector('#player');
+const computer = document.querySelector('#computer');
+const buttons = document.querySelectorAll('.button');
+const gameResult = document.querySelector('#game-result');
+
 let playerScore;
 let computerScore;
-game();
 
-function computerPlay() {
-    let moves = ['rock', 'paper', 'scissors']
+function toPascalCase(str){
+    str = str[0].toUpperCase()+ str.slice(1,str.length);
+    return str;
+}
+
+function startGame(){
+    playerScore = 0;
+    computerScore = 0;
+    gameResult.innerHTML = `<br><br>`
+    player.textContent = playerScore;
+    computer.textContent = computerScore;
+}
+
+function playPlayer(move) {
+    if (playerScore < 5 && computerScore < 5) {
+        let playerSelection = move;
+        playRound(playerSelection, playComputer());
+    }
+    else {
+        checkWin();
+    }
+}
+function playComputer() {
+    let moves = ['Rock', 'Paper', 'Scissors']
     return moves[Math.floor(Math.random() * 3)]
 }
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
+    playerSelection = toPascalCase(playerSelection.toString());
+
     if (playerSelection === computerSelection) {
-        alert(`Tie
-Player:${playerScore} Computer:${computerScore}`)
+        gameResult.innerHTML = `Tie<br><br>`;
     }
-    else if ((playerSelection === 'rock' && computerSelection === 'scissors') ||
-        (playerSelection === 'scissors' && computerSelection === 'paper') ||
-        (playerSelection === 'paper' && computerSelection === 'rock')) {
+    else if ((playerSelection === 'Rock' && computerSelection === 'Scissors') ||
+        (playerSelection === 'Scissors' && computerSelection === 'Paper') ||
+        (playerSelection === 'Paper' && computerSelection === 'Rock')) {
         playerScore++;
-        alert(`${playerSelection} beats ${computerSelection}
-Player Wins 
-Player:${playerScore} Computer:${computerScore}`);
+        gameResult.innerHTML = `${playerSelection} beats ${computerSelection}
+        <br>Player Wins `;
     }
     else {
         computerScore++;
-        alert(`${computerSelection} beats ${playerSelection}
-Computer Wins 
-Player:${playerScore} Computer:${computerScore}`);
+        gameResult.innerHTML = `${toPascalCase(computerSelection)} beats ${playerSelection}
+        <br>Computer Wins `;
     }
+
+    player.textContent = playerScore;
+    computer.textContent = computerScore;
 }
 
-function game() {
-    playerScore = 0;
-    computerScore = 0;
-    while (playerScore < 5 && computerScore < 5) {
-        let playerSelection = prompt('Rock Paper Scissors')
-        playRound(playerSelection, computerPlay());
-        console.log(`help`);
-    }
+function checkWin() {
     if (playerScore === 5) {
         if (confirm('Player Wins! \nReplay?')) {
-            game();
+            startGame();
         }
         else {
             alert('Actually i dont\'t have any other stuff to show you sooo \nbye bye');
@@ -48,7 +68,7 @@ function game() {
     }
     else if (computerScore === 5) {
         if (confirm('Computer Wins! \nReplay?')) {
-            game();
+            startGame();
         }
         else {
             alert('Actually i don\'t have any other stuff to show you sooo \nbye bye');
@@ -61,3 +81,9 @@ function game() {
     }
 }
 
+function clickableButton(button) {
+    button.addEventListener('click', function () { playPlayer(button.id); });
+}
+
+startGame();
+buttons.forEach(clickableButton);
